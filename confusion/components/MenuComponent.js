@@ -12,7 +12,7 @@ function Menu(props) {
                     title={item.name}
                     subtitle={item.description}
                     hideChevron={true}
-                    leftAvatar={{ source: {uri:'./images/buffet.png'}}}
+                    avatar={ require('./images/uthappizza.png')}
                   />
         );
     };
