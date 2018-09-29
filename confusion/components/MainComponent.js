@@ -1,19 +1,94 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
-import { DISHES } from '../shared/dishes';
+import Dishdetail from './DishdetailComponent'
+import Home from './HomeComponent';
+import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
+import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
+import { Icon } from 'react-native-elements';
+
+const MenuNavigator = createStackNavigator({
+    Menu: { screen: Menu,
+        navigationOptions: ({ navigation }) => ({
+          headerLeft: <Icon name="menu" size={24} 
+          color= 'white'
+          onPress={ () => navigation.toggleDrawer() } />          
+        })  
+    },
+    Dishdetail: {screen: Dishdetail}
+},{
+    initialRouteName : 'Menu',
+    navigationOptions:{
+        headerStyle:{
+            backgroundColor:'#ff9933'
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: '#fff'
+        }
+    }
+});
+
+const HomeNavigator = createStackNavigator({
+    Home: { screen: Home }
+  } , {
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "#ff9933"
+      },
+      headerTitleStyle: {
+          color: "#fff"            
+      },
+      headerTintColor: "#fff" ,
+      headerLeft: <Icon name="menu" size={24} 
+      color= 'white'
+      onPress={ () => navigation.toggleDrawer() } />
+    })
+  });
+
+const MainNavigator = createDrawerNavigator({
+    Home: 
+      { screen: HomeNavigator,
+        navigationOptions: {
+          title: 'Home',
+          drawerLabel: 'Home',
+          drawerIcon: ({tintColor}) => (
+              <Icon
+                name="home"
+                type='font-awesome'
+                size={24}
+                color={tintColor}
+                />
+          )
+        }
+      },
+    Menu: 
+      { screen: MenuNavigator,
+        navigationOptions: {
+          title: 'Menu',
+          drawerLabel: 'Menu',
+          drawerIcon: ({tintColor}) => (
+            <Icon
+              name="list"
+              type='font-awesome'
+              size={24}
+              color={tintColor}
+              />
+        )
+        }, 
+      }
+}, {
+  drawerBackgroundColor: '#ffcc99'
+});
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dishes: DISHES
-    };
-  }
-
+ 
   render() {
  
     return (
-        <Menu dishes={this.state.dishes} />
+        <View style={{flex:1, paddingTop: Platform.OS === 'ios' ? 0 : Expo
+        .Constants.statusBarHeight }}>
+             <MainNavigator />
+        </View>
     );
   }
 }
