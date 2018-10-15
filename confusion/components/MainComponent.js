@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Menu from './MenuComponent';
-import Dishdetail from './DishdetailComponent'
+import DishDetail from './DishdetailComponent'
 import Home from './HomeComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
@@ -32,7 +32,7 @@ const MenuNavigator = createStackNavigator({
           onPress={ () => navigation.toggleDrawer() } />          
         })  
     },
-    Dishdetail: {screen: Dishdetail}
+    Dishdetail: {screen: DishDetail}
 },{
     initialRouteName : 'Menu',
     navigationOptions:{
