@@ -86,8 +86,12 @@ function RenderComments(props) {
         
         return (
             <View key={index} style={{margin: 10}}>
+                 <Rating
+                    imageSize={20}
+                    readonly
+                    startingValue={item.rating}
+                />
                 <Text style={{fontSize: 14}}>{item.comment}</Text>
-                <Text style={{fontSize: 12}}>{item.rating} Stars</Text>
                 <Text style={{fontSize: 12}}>{'-- ' + item.author + ', ' + item.date} </Text>
             </View>
         );
