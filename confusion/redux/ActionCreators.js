@@ -150,6 +150,11 @@ export const postFavorite = (dishId)  => (dispatch) => {
     }, 2000);
 };
 
+export const deleteFavorite = (dishId) => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: dishId
+});  
+
 
 export const addFavorite = (dishId) => ({
     type: ActionTypes.ADD_FAVORITE,

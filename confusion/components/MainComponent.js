@@ -8,6 +8,7 @@ import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView 
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import Favorites from './FavoriteComponent';
 
 const mapStateToProps = state => {
   return {
@@ -81,6 +82,23 @@ const HomeNavigator = createStackNavigator({
     })
   })
 
+  const FavoritesNavigator = createStackNavigator({
+    Favorites: { screen: Favorites }
+  }, {
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "#512DA8"
+      },
+      headerTitleStyle: {
+          color: "#fff"            
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }} 
+        onPress={ () => navigation.navigate('DrawerToggle') } />    
+    })
+  })
+
 const MainNavigator = createDrawerNavigator({
     Home: 
       { screen: HomeNavigator,
@@ -126,7 +144,22 @@ const MainNavigator = createDrawerNavigator({
             />
           ),
         }
-      }
+      },
+      Favorites:
+        { screen: FavoritesNavigator,
+          navigationOptions: {
+            title: 'My Favorites',
+            drawerLabel: 'My Favorites',
+            drawerIcon: ({ tintColor, focused }) => (
+              <Icon
+                name='heart'
+                type='font-awesome'            
+                size={24}
+                iconStyle={{ color: tintColor }}
+              />
+            ),
+          }
+        }
 }, {
   drawerBackgroundColor: '#ffcc99'
 });
