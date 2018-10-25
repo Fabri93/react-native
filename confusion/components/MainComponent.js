@@ -3,12 +3,14 @@ import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent'
 import Home from './HomeComponent';
 import Reservation from './ReservationComponent';
+import Login from './LoginComponent';
 import { View, Platform, Text, ScrollView, Image, StyleSheet } from 'react-native';
 import { createStackNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import Favorites from './FavoriteComponent';
+
 
 const mapStateToProps = state => {
   return {
@@ -80,7 +82,7 @@ const HomeNavigator = createStackNavigator({
         iconStyle={{ color: 'white' }} 
         onPress={ () => navigation.toggleDrawer() } />    
     })
-  })
+  });
 
   const FavoritesNavigator = createStackNavigator({
     Favorites: { screen: Favorites }
@@ -97,7 +99,26 @@ const HomeNavigator = createStackNavigator({
         iconStyle={{ color: 'white' }} 
         onPress={ () => navigation.navigate('DrawerToggle') } />    
     })
+  });
+  
+  const LoginNavigator = createStackNavigator({
+    Login: { screen: Login }
+  }, {
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: {
+        backgroundColor: "#512DA8"
+    },
+    headerTitleStyle: {
+        color: "#fff"            
+    },
+    headerTintColor: "#fff",
+    headerLeft: <Icon name="menu" size={24}
+      iconStyle={{ color: 'white' }} 
+      onPress={ () => navigation.toggleDrawer() } />    
   })
+});
+
+
 
 const MainNavigator = createDrawerNavigator({
     Home: 
@@ -159,7 +180,22 @@ const MainNavigator = createDrawerNavigator({
               />
             ),
           }
-        }
+        },
+        Login: 
+        { screen: LoginNavigator,
+          navigationOptions: {
+            title: 'Login',
+            drawerLabel: 'Login',
+            drawerIcon: ({ tintColor, focused }) => (
+              <Icon
+                name='sign-in'
+                type='font-awesome'            
+                size={24}
+                iconStyle={{ color: tintColor }}
+              />
+            ),
+          }
+        },
 }, {
   drawerBackgroundColor: '#ffcc99'
 });
