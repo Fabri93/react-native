@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TextInput, View, ScrollView, FlatList, Modal, Button  } from 'react-native';
+import { Text, TextInput, View, ScrollView, FlatList, Modal, Button, Share} from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -25,6 +25,16 @@ function RenderDish(props) {
 
     const dish = props.dish;
     
+    const shareDish = (title, message, url) => {
+        Share.share({
+            title: title,
+            message: title + ': ' + message + ' ' + url,
+            url: url
+        },{
+            dialogTitle: 'Share ' + title
+        })
+    }
+
         if (dish != null) {
             return(
                 <Card
@@ -41,7 +51,7 @@ function RenderDish(props) {
                     }}>
                         <View style={{
                             flex:1,
-                            alignItems:'flex-end',
+                            alignItems:'flex-start',
                             margin:10
                         }}>
                     
@@ -69,7 +79,23 @@ function RenderDish(props) {
                             onPress={() => props.onPressPen()}
                             />
                         </View>
+                        <View style={{
+                            flex:1,
+                            alignItems:'flex-start',
+                            margin:10
+                        }}>
+                        
+                            <Icon
+                                raised
+                                reverse
+                                name={'share'}
+                                type='font-awesome'
+                                color='#51D2A8'
+                                onPress={() => shareDish(dish.name, dish.description, baseUrl + dish.image)}
+                                />
                         </View>
+                        
+                    </View>
                 </Card>
             );
         }
