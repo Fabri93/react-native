@@ -2,7 +2,7 @@
   "expo": {
    "name": "confusion",
    "icon": "./icon.png",
-   "version": "1.0.0",
+   "version": "1.0.1",
    "slug": "confusion",
    "sdkVersion": "27.0.0",
    "ios": {
